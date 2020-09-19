@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="headerBackground" format="reference|color" />
+
+    <declare-styleable name="PullToRefresh">
+        <attr name="adapterViewBackground" format="reference|color" />
+        <attr name="headerBackground" />
+        <attr name="headerTextColor" format="color" />
+        <attr name="mode">
+            <flag name="pullDownFromTop" value="0x1" />
+            <flag name="pullUpFromBottom" value="0x2" />
+            <flag name="both" value="0x3" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="MyXlistView">
+        <attr name="dividerHeight" format="dimension" />
+        <attr name="headerBackground" />
+        <attr name="footerBackground" format="color" />
+    </declare-styleable>
+
+    <!-- 拖动 -->
+    <declare-styleable name="DragSortListView">
+        <attr name="collapsed_height" format="dimension" />
+        <attr name="drag_scroll_start" format="float" />
+        <attr name="max_drag_scroll_speed" format="float" />
+        <attr name="float_background_color" format="color" />
+        <attr name="remove_mode">
+            <enum name="clickRemove" value="0" />
+            <enum name="flingRemove" value="1" />
+        </attr>
+        <attr name="track_drag_sort" format="boolean" />
+        <attr name="float_alpha" format="float" />
+        <attr name="slide_shuffle_speed" format="float" />
+        <attr name="remove_animation_duration" format="integer" />
+        <attr name="drop_animation_duration" format="integer" />
+        <attr name="drag_enabled" format="boolean" />
+        <attr name="sort_enabled" format="boolean" />
+        <attr name="remove_enabled" format="boolean" />
+        <attr name="drag_start_mode">
+            <enum name="onDown" value="0" />
+            <enum name="onMove" value="1" />
+            <enum name="onLongPress" value="2" />
+        </attr>
+        <attr name="drag_handle_id" format="integer" />
+        <attr name="fling_handle_id" format="integer" />
+        <attr name="click_remove_id" format="integer" />
+        <attr name="use_default_controller" format="boolean" />
+    </declare-styleable>
+
+    <!-- 星星评级 -->
+    <declare-styleable name="RatingBarStyle">
+        <attr name="item_drawable_normal" format="reference" />
+        <attr name="item_drawable_select" format="reference" />
+        <attr name="item_size" format="dimension" />
+        <attr name="item_each_margin" format="dimension" />
+        <attr name="numStar" format="integer" />
+        <attr name="rating1" format="integer" />
+    </declare-styleable>
+
+    <!-- 星星评级2 -->
+    <declare-styleable name="StarView">
+        <attr name="star_img_off" format="reference" />
+        <attr name="star_img_on" format="reference" />
+        <attr name="star_img_half" format="reference" />
+        <attr name="star_margin" format="dimension" />
+        <attr name="star_height" format="dimension" />
+        <attr name="star_num" format="integer" />
+        <attr name="star_position" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="swipelistviewstyle">
+        <attr name="right_width" format="dimension"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+        <!-- tab的title选中时的文字大小 -->
+        <attr name="pstsTitleSelectedSize" format="dimension" />
+        <!-- tab的title选中时的文字颜色 -->
+        <attr name="pstsTitleSelectedColor" format="color" />
+        <!-- tab的title底部的滚动条的宽度是否等于tab的宽度 -->
+        <attr name="pstsUnderLineWidthFillTab" format="boolean" />
+    </declare-styleable>
+
+    <!-- 主题切换通用属性 -->
+    <declare-styleable name="AppTheme">
+        <attr name="app_top_background_color" format="color" />
+        <attr name="app_top_text_color" format="color" />
+        <attr name="app_top_line_color" format="color" />
+        <attr name="app_back_icon" format="reference" />
+        <attr name="home_drop_down_icon" format="reference" />
+        <attr name="home_my_icon" format="reference" />
+
+        <attr name="app_main_text_color" format="color" />
+        <attr name="app_secondary_text_color" format="color" />
+    </declare-styleable>
+
+    <!-- AmusementPark tag -->
+    <item type="id" name="act_id"/>
+    <item type="id" name="store_id"/>
+
+    <declare-styleable name="RCImageView">
+        <attr name="radius" format="dimension"/>
+        <attr name="border_radius" format="dimension"/>
+        <attr name="enable_outline" format="boolean"/>
+        <attr name="outline_color" format="color"/>
+        <attr name="outline_width" format="dimension"/>
+        <attr name="outline_spacing" format="dimension"/>
+        <attr name="rc_type" format="enum">
+            <enum name="circle" value="0"/>
+            <enum name="round_corner" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="LineView">
+        <attr name="line_color" format="color"/>
+        <attr name="line_width" format="dimension"/>
+        <attr name="line_mode" format="enum">
+            <enum name="portrait" value="0"/>
+            <enum name="landscape" value="1"/>
+        </attr>
+        <attr name="line_gravity" format="enum">
+            <enum name="center" value="0"/>
+        </attr>
+        <attr name="line_offset_x" format="dimension"/>
+        <attr name="line_offset_y" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="LineViewV2">
+        <attr name="lineType" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="dash" value="1"/>
+        </attr>
+        <attr name="dashWidth" format="dimension"/>
+        <attr name="dashRatio" format="float"/>
+        <attr name="lineColor" format="color"/>
+        <attr name="lineWidth" format="dimension"/>
+        <attr name="lineDirection" format="enum">
+            <enum name="portrait" value="0"/>
+            <enum name="landscape" value="1"/>
+        </attr>
+        <attr name="lineGravity" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="top" value="1"/>
+            <enum name="right" value="2"/>
+            <enum name="bottom" value="3"/>
+            <enum name="center" value="4"/>
+            <enum name="center_horizontal" value="5"/>
+            <enum name="center_vertical" value="6"/>
+        </attr>
+        <attr name="lineOffsetX" format="dimension"/>
+        <attr name="lineOffsetY" format="dimension"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="CrescentImageView">
+        <attr name="crescentHeightRatio" format="float"/>
+        <attr name="crescentHeight" format="dimension"/>
+        <attr name="crescentOffset" format="dimension"/>
+        <attr name="crescentDirection" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="NewBanner">
+        <attr format="integer" name="delay_time"/>
+        <attr format="integer" name="scroll_time"/>
+        <attr format="boolean" name="is_auto_play"/>
+        <attr format="color|reference" name="title_background"/>
+        <attr format="color" name="title_textcolor"/>
+        <attr format="dimension" name="title_textsize"/>
+        <attr format="dimension" name="title_height"/>
+        <attr format="dimension" name="indicator_width"/>
+        <attr format="dimension" name="indicator_height"/>
+        <attr format="dimension" name="indicator_margin"/>
+        <attr format="reference" name="indicator_drawable_selected"/>
+        <attr format="reference" name="indicator_drawable_unselected"/>
+        <attr format="reference" name="banner_layout"/>
+        <attr format="reference" name="banner_default_image"/>
+        <attr format="enum" name="image_scale_type_nb">
+            <enum name="center" value="0"/>
+            <enum name="center_crop" value="1"/>
+            <enum name="center_inside" value="2"/>
+            <enum name="fit_center" value="3"/>
+            <enum name="fit_end" value="4"/>
+            <enum name="fit_start" value="5"/>
+            <enum name="fit_xy" value="6"/>
+            <enum name="matrix" value="7"/>
+        </attr>
+        <attr name="round_corner" format="boolean"/>
+        <attr name="corner_radius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ProgressView">
+        <attr format="float" name="maxProgress"/>
+        <attr format="float" name="progress"/>
+        <attr format="color" name="backgroundColor"/>
+        <attr format="color" name="startColor"/>
+        <attr format="color" name="endColor"/>
+        <attr format="dimension" name="cornerRadius"/>
+    </declare-styleable>
+
+    <declare-styleable name="ArcProgressView">
+        <attr name="arcColor" format="color"/>
+        <attr name="arcProgress" format="float" />
+        <attr name="arcRadius" format="dimension"/>
+        <attr name="thickness" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="DiscView">
+        <attr name="discContentSize" format="dimension"/>
+        <attr name="disc0Width" format="dimension"/>
+        <attr name="disc1Width" format="dimension"/>
+        <attr name="disc0StartColor" format="color"/>
+        <attr name="disc0MiddleColor" format="color"/>
+        <attr name="disc0EndColor" format="color"/>
+        <attr name="disc1StartColor" format="color"/>
+        <attr name="disc1MiddleColor" format="color"/>
+        <attr name="disc1EndColor" format="color"/>
+    </declare-styleable>
+
+</resources>

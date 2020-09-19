@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+    sourceSets {
+        main {
+
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    defaultConfig {
+        applicationId 'com.adam.collection.test'
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64"
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+//    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+//    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'org.jetbrains:annotations-java5:15.0'
+//    implementation files('libs\\android-support-v4.jar')
+    // implementation files('libs\\android-support-v4.jar')
+    //implementation files('libs\\zxing-core.jar')
+    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    //okhttp连接所需要的依赖
+    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+    implementation 'com.squareup.okio:okio:1.11.0'
+
+    implementation 'com.amap.api:location:latest.integration'
+    //PushSDK必须依赖基础组件库，所以需要加入对应依赖
+    implementation 'com.umeng.sdk:common:1.5.3'
+    //PushSDK必须依赖utdid库，所以需要加入对应依赖
+    implementation 'com.umeng.sdk:utdid:1.1.5.3'
+    //PushSDK
+    implementation 'com.umeng.sdk:push:4.2.0'
+    //摄像头
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.mylhyl:zxingscanner:2.0.4'
+
+    //implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.github.JerryJin93:ImmersiveHelper:1.0.5'
+    implementation 'com.github.JerryJin93:NotchFit:1.9'
+//    implementation 'com.android.support:support-annotations:20.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+//微信登陆
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    //glide图片加载
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    //图片选择
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
+    //微信团队的储存第三方
+    implementation 'com.tencent:mmkv-static:1.2.2'
+
+
+}
