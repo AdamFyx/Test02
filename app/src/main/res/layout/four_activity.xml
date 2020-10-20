@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/scrollView"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity">
+    <com.adam.collection.test.refresh.CustomRefreshHeader
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我是第四页">
+
+            </TextView>
+            <Button
+                android:id="@+id/finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一键退出">
+            </Button>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/linechart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="折线图">
+            </Button>
+            <Button
+                android:id="@+id/viewpager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="滑动指示器"></Button>
+            <Button
+                android:id="@+id/watch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="表盘">
+            </Button>
+            <Button
+                android:id="@+id/fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fragment">
+            </Button>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+                <ListView
+                    android:id="@+id/listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </ListView>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <com.adam.collection.test.refresh.CustomRefreshFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

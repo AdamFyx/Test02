@@ -2,6 +2,7 @@ package com.adam.collection.test.ui;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -298,7 +299,10 @@ public class ScanActivity extends Activity implements SurfaceHolder.Callback {
 
 	@Override
 	public void onBackPressed() {
-		ScanActivity.this.finish();
+		Intent intent=new Intent();
+		intent.setClass(this,MainActivity.class);
+		startActivity(intent);
+		finish();
 		overridePendingTransition(R.anim.alpha_null, R.anim.alpha_out);
 	}
 }

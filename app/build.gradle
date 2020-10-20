@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+//腾讯bug管理插件
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId 'com.adam.collection.test'
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -23,10 +23,16 @@ android {
         }
 
     }
-
+    //适配lambad表达式
+    android {
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -40,6 +46,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
 //    implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
 //    implementation files('libs\\android-support-v4.jar')
     // implementation files('libs\\android-support-v4.jar')
     //implementation files('libs\\zxing-core.jar')
@@ -74,6 +82,25 @@ dependencies {
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
     //微信团队的储存第三方
     implementation 'com.tencent:mmkv-static:1.2.2'
-
+    //头部刷新
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
+    //加载gif动画
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.6'
+    //拍照文件储存
+    implementation 'top.zibin:Luban:1.1.8'
+    implementation 'cn.finalteam:galleryfinal:1.4.8.7'
+    //litepal数据库
+    implementation 'org.litepal.android:java:3.0.0'
+    //腾讯bugly
+//    implementation 'com.tencent.bugly:symtabfileuploader:2.1.0'
+    //腾讯bug管理平台
+    implementation 'com.tencent.bugly:crashreport:2.6.0'
+    implementation 'com.tencent.bugly:nativecrashreport:3.3.0'
+//    implementation 'com.android.tools.build:gradle:2.3.1'
+//    implementation 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+//
+//    // 腾讯bugly
+//    implementation 'com.tencent.bugly:symtabfileuploader:2.1.0'
 
 }

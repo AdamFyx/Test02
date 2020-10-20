@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我是第二个Fragment">
+        </TextView>
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清除画板">
+        </Button>
+    </LinearLayout>
+
+
+    <com.adam.collection.test.views.DragView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/black">
+
+    </com.adam.collection.test.views.DragView>
+    <LinearLayout
+        android:id="@+id/canvas"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    </LinearLayout>
+    <com.adam.collection.test.views.SurfaceViewTemplateSin
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    </com.adam.collection.test.views.SurfaceViewTemplateSin>
+    <com.adam.collection.test.views.SurfaceViewTemplatePaint
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    </com.adam.collection.test.views.SurfaceViewTemplatePaint>
+<!--    <com.adam.collection.test.views.DragViewgroup-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+    <!--    </com.adam.collection.test.views.DragViewgroup>-->
+</LinearLayout>

@@ -1,62 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.1" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     package="com.adam.collection.test">
-    <!--    package="com.adam.collection.test"-->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <!--网络访问权限-->
+    <!-- package="com.adam.collection.test" -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 网络访问权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_LOCATTON_MOCK_LOCATION"/>
-    <!-- 友盟推送SDK -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATTON_MOCK_LOCATION" /> <!-- 友盟推送SDK -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 访问sd卡的权限 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- 友盟推送权限，用以设置前台是否显示通知 -->
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <!-- 必须的权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- 推荐的权限 -->
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
-    <!-- 可以提高室内定位的精确度 -->
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <!-- 可以提高室内定位的精确度 -->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <!--读取缓存数据-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 友盟推送权限，用以设置前台是否显示通知 -->
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 必须的权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 推荐的权限 -->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" /> <!-- 可以提高室内定位的精确度 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- 可以提高室内定位的精确度 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- 读取缓存数据 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 发送消息 -->
+    <uses-permission android:name="android.permission.SEND_SMS" /> <!-- 阅读消息 -->
+    <uses-permission android:name="android.permission.READ_SMS" /> <!-- 写入消息 -->
+    <uses-permission android:name="android.permission.WRITE_SMS" /> <!-- 接收消息 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
-            android:name="com.adam.collection.test.ui.MyAppliaction"
+        android:name=".ui.MyAppliaction"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
+        android:launchMode="standard"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-    android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.FragmentActivity"></activity>
+        <activity android:name=".selfwidget.ViewPagerIndicatorActivity" />
+        <activity android:name=".selfwidget.MyWatchViewActivity" />
+        <activity android:name=".ui.TCPClientActivity" />
+        <activity android:name=".selfwidget.LineChartActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.adam.collection.test.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <receiver
+            android:name=".broadcastreceiver.BootCompleteReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".broadcastreceiver.MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.broadcasttest.MY_BROADCAST" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".broadcastreceiver.MySecondBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="100">
+                <action android:name="com.example.broadcasttest.MY_BROADCAST" />
+            </intent-filter>
+        </receiver>
+
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="你自己的UMENG_APPKEY" />
+            android:value="5f56eb117823567fd86554cf" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="baidu" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="你自己的UMENG_MESSAGE_SECRET" >
-        </meta-data>
+            android:value="02039776f9ebdfe53805033b18edfb94" />
+
         <activity
-            android:name="com.adam.collection.test.ui.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -65,14 +102,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name="com.amap.api.location.APSService" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="dc95f2d53c0610f12aff2fe015728a10"
-            tools:replace="android:value"/>
-        <activity android:name="com.adam.collection.test.ui.ScanActivity"></activity>
-        <activity android:name="com.adam.collection.test.ui.MainWXActivity"></activity>
-        <activity android:name="com.adam.collection.test.ui.WXEntryActivity"></activity>
+            tools:replace="android:value" />
+
+        <activity
+            android:name=".ui.ScanActivity"
+            android:launchMode="standard" />
+        <activity android:name=".ui.MainWXActivity" />
+        <activity android:name=".ui.WXEntryActivity" />
+        <activity
+            android:name=".ui.SecondActivity"
+            android:launchMode="standard">
+
+            <!-- android:process=":remote" -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" /> <!-- 和系统打开网页的Action一致 -->
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.ThirdActivity">
+
+            <!-- android:process="com.adam.collection.test.remote"> -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" /> <!-- 和系统打开网页的Action一致 -->
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="third" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.FourActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" /> <!-- 和系统打开网页的Action一致 -->
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="four" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

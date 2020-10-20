@@ -1,13 +1,22 @@
 package com.adam.collection.test.presenter;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.adam.collection.test.base.BaesPresenter;
 import com.adam.collection.test.contract.MainContract;
+import com.adam.collection.test.ui.MainActivity;
+import com.adam.collection.test.util.FileManager;
+import com.tencent.mmkv.MMKV;
 
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -141,5 +150,59 @@ import okhttp3.Response;
                 Log.d(TAG,"onResponse:"+response.body().string());
             }
         });
+    }
+        /*
+    清除缓存
+    */
+    public void cleanCache(Context context) {
+        FileManager.with(context)
+                .clearCache((failedFiles, cleanedSize) -> {
+                    double size = Double.parseDouble(cleanedSize);
+                    cleanedSize = size == 0 ? "当前没有缓存" : "已清理" + cleanedSize + "MB";
+                    Toast.makeText(context, cleanedSize, Toast.LENGTH_LONG).show();
+                });
+    }
+    /*
+        跳转应用市场
+         */
+    public  void jumpToApp(Context context, String appPkg, String marketPkg) {
+//            try {
+//                if (TextUtils.isEmpty(appPkg))
+//                    return;
+//                Uri uri = Uri.parse("market://details?id=" + appPkg);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                if (!TextUtils.isEmpty(marketPkg))
+//                    intent.setPackage(marketPkg);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                this.startActivity(intent);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+    }
+
+
+    public static void timeCompare(String startTime1) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Log.d("date1",dateFormat.format(new Date(Long.valueOf(startTime1+"000"))));
+    }
+    public void getSomeValue(){
+        MMKV kv=MMKV.defaultMMKV();
+        kv.encode("bool",true);
+        kv.encode("int",Integer.MIN_VALUE);
+        kv.encode("string","hello from mmkv");
+        //   Log.d("我是数据",kv.decodeString("bool").toString());
+        //   Log.d("我是数据",kv.decodeString("int").toString());
+        Log.d("我是数据",kv.decodeString("string").toString());
+        Log.d("我是数据",kv.decodeString("content").toString());
+    }
+    //获取手机设备的信息
+    public static String getDeviceModel(){
+        String phoneModel="";
+        try {
+            phoneModel = URLEncoder.encode(android.os.Build.MODEL, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return phoneModel;
     }
 }

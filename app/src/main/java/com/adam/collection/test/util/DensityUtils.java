@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Point;
 import android.util.TypedValue;
 
+/*
+屏幕单位转换
+ */
 public class DensityUtils {
 	private DensityUtils() {
 
