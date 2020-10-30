@@ -48,6 +48,7 @@ dependencies {
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation project(path: ':customview')
 //    implementation files('libs\\android-support-v4.jar')
     // implementation files('libs\\android-support-v4.jar')
     //implementation files('libs\\zxing-core.jar')
@@ -102,5 +103,13 @@ dependencies {
 //
 //    // 腾讯bugly
 //    implementation 'com.tencent.bugly:symtabfileuploader:2.1.0'
+//    implementation project(':customview')
+    //hutool开源工具类
+    implementation 'cn.hutool:hutool-all:5.4.5'
+    //banner轮播图
+    implementation 'com.youth.banner:banner:2.1.0'
+    //加载json图片
+    implementation 'com.airbnb.android:lottie:latest.integration'
+
 
 }

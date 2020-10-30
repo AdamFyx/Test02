@@ -14,7 +14,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -280,7 +279,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
                 });
                 break;
             case R.id.scan:
-//去寻找是否已经有了相机的权限
+        //去寻找是否已经有了相机的权限
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
 
                     //Toast.makeText(MainActivity.this,"您申请了动态权限",Toast.LENGTH_SHORT).show();

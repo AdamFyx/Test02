@@ -46,7 +46,17 @@
         <activity android:name=".selfwidget.MyWatchViewActivity" />
         <activity android:name=".ui.TCPClientActivity" />
         <activity android:name=".selfwidget.LineChartActivity" />
+        <activity android:name="com.wjn.myview.activity.SwitchScrollViewActivity" />
+        <activity android:name="com.wjn.myview.activity.ImageViewScrollViewActivity" />
+        <activity android:name="com.wjn.myview.activity.LeftListViewActivity" />
+        <activity android:name="com.wjn.myview.activity.DragSortListViewActivity" />
+        <activity android:name="com.wjn.myview.activity.MarqueeTextActivity" />
+        <activity android:name="com.wjn.myview.activity.GuaGuaLeActivity" />
+        <activity android:name="com.wjn.myview.activity.FlowLayoutActivity">
+        </activity>
+        <activity android:name="com.wjn.myview.activity.MainActivity"></activity>
 
+        
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.adam.collection.test.fileprovider"
