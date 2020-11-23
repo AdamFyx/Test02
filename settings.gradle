@@ -1,3 +1,4 @@
+include ':voice'
 include ':customview'
 include ':app'
 rootProject.name = "MVCPractice"

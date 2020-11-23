@@ -51,12 +51,72 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             app:banner_loop_time="3000"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/jsonimage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="data.json"
+            app:lottie_loop="true"/>
+        <Button
+            android:id="@+id/setLruCache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="setLruCache">
+        </Button>
+        <Button
+            android:id="@+id/getLruCache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="getLruCache">
+        </Button>
+       <ImageView
+           android:id="@+id/image"
+           android:layout_width="100dp"
+           android:layout_height="100dp">
+       </ImageView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/setDiskLru"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="setDiskLru">
+        </Button>
+        <Button
+            android:id="@+id/getDiskLru"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="getDiskLru">
+        </Button>
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            >
+        </ImageView>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/jsonimage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="data.json"
-        app:lottie_loop="true"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/disklru"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        </TextView>
+        <Button
+            android:id="@+id/listseekbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:text="600" >
+        </Button>
+    </LinearLayout>
+
 </LinearLayout>

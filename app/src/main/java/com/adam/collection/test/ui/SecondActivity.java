@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,10 +20,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.os.Messenger;
 import android.os.PowerManager;
+import android.os.RemoteException;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -37,6 +42,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,16 +61,20 @@ import com.adam.collection.test.camera.CameraTakeListener;
 import com.adam.collection.test.camera.CameraTakeManager;
 import com.adam.collection.test.camera.LogUtil;
 import com.adam.collection.test.contract.MainContract;
+import com.adam.collection.test.messenger.MessengerService;
 import com.adam.collection.test.presenter.MainPresenter;
 import com.adam.collection.test.presenter.SecondPresenter;
 import com.adam.collection.test.refresh.CustomRefreshHeader;
 import com.adam.collection.test.util.ActivityController;
 import com.adam.collection.test.util.LogUtils;
 import com.adam.collection.test.util.UserManager;
+import com.airbnb.lottie.L;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.wjn.myview.constant.MyConstant;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -74,6 +84,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.finalteam.galleryfinal.permission.EasyPermissions;
+
+import static android.os.Handler.*;
 
 public class SecondActivity extends BaseActivity<SecondPresenter> implements MainContract.View, View.OnClickListener {
 
@@ -108,11 +120,26 @@ public class SecondActivity extends BaseActivity<SecondPresenter> implements Mai
         findViewById(R.id.takephoto).setOnClickListener(this);
         findViewById(R.id.phoneLocation).setOnClickListener(this);
         findViewById(R.id.handler).setOnClickListener(this);
+        findViewById(R.id.notification).setOnClickListener(this);
         picture=findViewById(R.id.picture);
         linksView=findViewById(R.id.linksView);
 
+
         phoneLocationResult=findViewById(R.id.phoneLocationResult);
         giftImage=findViewById(R.id.giftest);
+        refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                LogUtils.d("SecondActivity","我是加载更多");
+                refreshLayout.finishLoadMore();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                LogUtils.d("SecondActivity","我被刷新了");
+                refreshLayout.finishRefresh();//结束刷新
+            }
+        });
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -125,7 +152,6 @@ public class SecondActivity extends BaseActivity<SecondPresenter> implements Mai
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 LogUtils.d("SecondActivity","我是加载更多");
                     refreshLayout.finishLoadMore();
-                    String s="aa";
             }
         });
 
@@ -137,6 +163,7 @@ public class SecondActivity extends BaseActivity<SecondPresenter> implements Mai
         空白区域操作
          */
         lview.setOnTouchListener(new View.OnTouchListener() {
+
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 VelocityTracker velocityTracker=VelocityTracker.obtain();
@@ -163,7 +190,9 @@ public class SecondActivity extends BaseActivity<SecondPresenter> implements Mai
                 }
                 return true;
             }
+
         });
+
         /*
         动态图的滑动
          */
@@ -195,6 +224,8 @@ public class SecondActivity extends BaseActivity<SecondPresenter> implements Mai
             }
         });
 
+
+
     }
     private Handler handler=new Handler(){
         public void handleMessage(Message msg){
@@ -225,7 +256,43 @@ public class SecondActivity extends BaseActivity<SecondPresenter> implements Mai
         }
         return super.onOptionsItemSelected(item);
     }
+    private Messenger mService;
+    private  Messenger mGetReplyMessenger=new Messenger(new MessengerHandler());
+    public class  notifiaction{
+        private ServiceConnection mConnection=new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                mService=new Messenger(service);
+                Message msg=Message.obtain(null,1);
+                Bundle data=new Bundle();
+                data.putString("msg","hello,this is client");
+                Log.d("onServiceConnected","我执行到了");
+                msg.setData(data);
+                try {
+                    mService.send(msg);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        };
+    }
+    private static class MessengerHandler extends Handler{
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 2:
+                    Log.d("MessengerHandler","receive msg from Service:"+msg.getData().getString("reply"));
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -246,7 +313,7 @@ public class SecondActivity extends BaseActivity<SecondPresenter> implements Mai
                 sendOrderedBroadcast(intent2,null);
                 break;
             case R.id.sendNotification:
-                Intent intent3=new Intent(this,ThirdActivity.class);
+                Intent intent3=new Intent(this, com.adam.collection.test.ui.ThirdActivity.class);
 //                intent3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent3,0);
 
@@ -300,6 +367,7 @@ public class SecondActivity extends BaseActivity<SecondPresenter> implements Mai
                 getLocation();
                 break;
             case R.id.handler:
+
                new Thread(new Runnable() {
                    @Override
                    public void run() {
@@ -309,11 +377,13 @@ public class SecondActivity extends BaseActivity<SecondPresenter> implements Mai
                    }
                }).start();
                 break;
-
+            case R.id.notification:
+                Intent intent4=new Intent(this, MessengerService.class);
+                bindService(intent4,new notifiaction().mConnection,Context.BIND_AUTO_CREATE);
+                break;
         }
 
     }
-
         //入口是getLocation
         /**
          * 定位：权限判断

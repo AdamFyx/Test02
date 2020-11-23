@@ -1,6 +1,7 @@
 package com.adam.collection.test.ui;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -10,10 +11,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,14 +41,13 @@ import com.adam.collection.test.locationUtils.LocationUtil;
 import com.adam.collection.test.presenter.MainPresenter;
 import com.adam.collection.test.util.ActivityController;
 import com.adam.collection.test.util.LogUtils;
+import com.adam.collection.test.util.UmengHelper;
 import com.adam.collection.test.util.UserManager;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.bumptech.glide.Glide;
 import com.tencent.mmkv.MMKV;
-import com.umeng.commonsdk.UMConfigure;
-import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
 import org.litepal.tablemanager.Connector;
@@ -115,6 +119,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
         findViewById(R.id.createLitePal).setOnClickListener(this);
         findViewById(R.id.addLitePal).setOnClickListener(this);
         findViewById(R.id.tcp).setOnClickListener(this);
+        findViewById(R.id.imageswall).setOnClickListener(this);
         //requestPermission();
         tAddress = findViewById(R.id.address);
         qrCode = findViewById(R.id.qrcode);
@@ -127,19 +132,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
         mTvSelectedTime = findViewById(R.id.tv_selected_time);
 
 
-        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "02039776f9ebdfe53805033b18edfb94");
-        mPushAgent.register(new IUmengRegisterCallback() {
-            @Override
-            public void onSuccess(String deviceToken) {
-                //注册成功会返回device token
-                LogUtils.d("推送服务注册成功", "返回的deviceToken是" + deviceToken);
-            }
+        UmengHelper.getInstance().init(this,"MainActivity");
 
-            @Override
-            public void onFailure(String s, String s1) {
-                LogUtils.d("推送服务注册失败", "返回的错误信息是" + s);
-            }
-        });
         init();
         //这个name是储存的xml文件的名称
         sharedPreferences = getSharedPreferences("config", Context.MODE_PRIVATE);
@@ -200,23 +194,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
                 .load(url)
                 .into(imageView);
     }
-    //此回调回一直调用位置信息
-//    private class MyAMapLocationListener implements AMapLocationListener {
-//
-//        @Override
-//        public void onLocationChanged(AMapLocation aMapLocation) {
-//            if (aMapLocation != null) {
-//                if (aMapLocation.getErrorCode() == 0) {
-//                    LogUtils.e("位置：", aMapLocation.getAddress());
-//                } else {
-//                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-//                    LogUtils.e("AmapError11", "location Error, ErrCode:"
-//                            + aMapLocation.getErrorCode() + ", errInfo:"
-//                            + aMapLocation.getErrorInfo());
-//                }
-//            }
-//        }
-//    }
+
 
     @Override
     public void onClick(View view) {
@@ -328,6 +306,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
                 String udid = UUID.randomUUID().toString();
                 LogUtils.d("udid", udid);
                 deviceInfo.setText(deviceModel + "---->" + udid);
+                TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+                String deviceId = tm.getDeviceId();
+                String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                WifiManager wifiManager = ((WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE));
+                String macAddress = wifiManager.getConnectionInfo().getMacAddress();
+                String blueAddress= BluetoothAdapter.getDefaultAdapter().getAddress();
+
+                LogUtils.d("deviceId", "deviceId-->"+deviceId);
+                LogUtils.d("androidId", "androidId-->"+androidId);
+                LogUtils.d("macAddress", "macAddress-->"+macAddress);
+                LogUtils.d("blueAddress", "blueAddress-->"+blueAddress);
+
                 break;
             case R.id.saveData:
                 String str = editText.getText().toString();
@@ -376,8 +366,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
                 break;
             case R.id.nextpage:
                 Intent intent5 = new Intent();
-                intent5.setClass(this, SecondActivity.class);
+                intent5.setAction("android.intent.action.VIEW");
+                intent5.addCategory("android.intent.category.DEFAULT");
+                intent5.setData(Uri.parse("x-id:"));
+//                intent5.setClass(this, SecondActivity.class);
                 startActivityForResult(intent5, 11);
+
                 break;
             case R.id.createLitePal:
                 Connector.getDatabase();
@@ -394,6 +388,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
             case R.id.tcp:
                 Intent intent6=new Intent(this,TCPClientActivity.class);
                 startActivity(intent6);
+                break;
+            case R.id.imageswall:
+                startActivity(new Intent(this,FiveActivity.class));
                 break;
 
         }
@@ -503,7 +500,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         LogUtils.d(TAG, "onRestoreInstanceState: " + savedInstanceState.toString());
+
         super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        LogUtils.d(TAG, "onConfigurationChanged: " + newConfig.toString());
+
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override

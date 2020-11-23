@@ -1,6 +1,7 @@
 package com.adam.collection.test.base;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +29,9 @@ public abstract class BaseActivity<P extends IBasePresenter> extends AppCompatAc
             mPresenter.attachView(this);
         }
        // requestPermission();
+        if(savedInstanceState!=null){
+            Log.d("BaseActivity",savedInstanceState.toString());
+        }
         //初始化
         initView();
     }

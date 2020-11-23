@@ -1,5 +1,8 @@
 package com.adam.collection.test.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Author: BabyWeekend Inc.
  * <br/>
@@ -8,10 +11,10 @@ package com.adam.collection.test.bean;
  *
  * @since
  */
-public class Linker {
+public class Linker  {
     private  String name;
     private  String number;
-
+    public Linker linker;
     public String getName() {
         return name;
     }
@@ -27,4 +30,7 @@ public class Linker {
     public void setNumber(String number) {
         this.number = number;
     }
+
+
+
 }

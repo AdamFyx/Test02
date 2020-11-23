@@ -8,21 +8,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我是第二个Fragment">
-        </TextView>
         <Button
             android:id="@+id/clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="清除画板">
         </Button>
+        <Button
+            android:id="@+id/threadlocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="threadlocal">
+        </Button>
+        <Button
+            android:id="@+id/ztbwebview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="粘贴板写数据">
+        </Button>
+        <Button
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳转">
+
+        </Button>
     </LinearLayout>
 
 
     <com.adam.collection.test.views.DragView
+        android:id="@+id/dragview"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/black">

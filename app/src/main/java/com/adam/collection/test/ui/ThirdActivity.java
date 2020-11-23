@@ -51,6 +51,7 @@ public class ThirdActivity extends BaseActivity<MainPresenter> implements MainCo
     private  LocalReceiver localReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private IntentFilter intentFilter;
+
     @Override
     protected void initPresenter() {
         mPresenter = new MainPresenter();

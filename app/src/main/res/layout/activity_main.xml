@@ -168,9 +168,14 @@
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="300dp"
-
         android:layout_width="match_parent"
         android:layout_height="50dp">
+        <Button
+            android:id="@+id/imageswall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="照片墙">
+        </Button>
         <TextView
             android:id="@+id/deviceInfo"
             android:layout_width="wrap_content"
@@ -204,6 +209,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content">
         </TextView>
+
 
     </LinearLayout>
     <LinearLayout

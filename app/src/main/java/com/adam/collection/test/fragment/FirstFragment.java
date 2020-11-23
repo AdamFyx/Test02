@@ -13,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -33,6 +35,12 @@ import com.adam.collection.test.bean.Linker;
 import com.adam.collection.test.camera.LogUtil;
 import com.adam.collection.test.ui.ThirdActivity;
 import com.adam.collection.test.util.LogUtils;
+import com.airbnb.lottie.L;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.w3c.dom.Text;
 
@@ -59,6 +67,8 @@ public class FirstFragment extends Fragment  {
     private List<Linker> linkerLists=new ArrayList<>();
     private ViewHolderAdapter adapter;
     private ListView listView;
+    private SmartRefreshLayout refreshLayout;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +82,8 @@ public class FirstFragment extends Fragment  {
         skipToActivityBtn=view.findViewById(R.id.skipToActivity);
         skipToFragmentBtn=view.findViewById(R.id.skipToFragment);
         listView=view.findViewById(R.id.listview);
+        refreshLayout=view.findViewById(R.id.scrollView);
+//        setListViewHeightBasedOnChildren(listView);
         //滑动头部
         View header=new View(activity);
         header.setLayoutParams(new AbsListView.LayoutParams(
@@ -95,9 +107,7 @@ public class FirstFragment extends Fragment  {
             listView.setEmptyView(view.findViewById(R.id.empty_view));
             adapter.notifyDataSetChanged();
             showSomeThing();
-
             listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
                 @Override
                 public void onScrollStateChanged(AbsListView absListView, int i) {
                     switch (i){
@@ -139,8 +149,66 @@ public class FirstFragment extends Fragment  {
                 }
 
             });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.d("setOnItemClickListener", "onItemClick: "+position);
+                }
+            });
         }
+        //这是只有刷新
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                Log.d("setOnRefreshListener","我刷新了列表中的数据");
+                refreshLayout.finishRefresh();
+            }
+        });
+        //这是只有加载更多
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                Log.d("setOnRefreshLoadMoreListener","我加载了更多");
+                refreshLayout.finishLoadMore();
+            }
+        });
+        //这是既有刷新，又有加载更多
+        refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                Log.d("setOnRefreshLoadMoreListener","我加载了更多");
+                refreshLayout.finishLoadMore();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                Log.d("setOnRefreshLoadMoreListener","我加载完了更多刷新一下");
+                refreshLayout.finishRefresh();
+            }
+        });
         return view;
+    }
+
+    private  void setListViewHeightBasedOnChildren(ListView listView){
+        //获取listview对应得adapter
+        ListAdapter listAdapter=listView.getAdapter();
+        if(listAdapter==null){
+            return;
+        }
+        int totalHeight=0;
+        for(int i=0,len=listAdapter.getCount();i<len;i++){
+            //listAdapter.getCount()返回数据项得数目
+            View listItem=listAdapter.getView(i,null,listView);
+            //计算子项view得宽高
+            listItem.measure(0,0);
+            //统计所有子项得总高度
+            totalHeight+=listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params=listView.getLayoutParams();
+        params.height=totalHeight+(listView.getDividerHeight()*(listAdapter.getCount()-1));
+        //listView.getDividerHeight()获取子项间分隔符占用得高度
+        //params.height最后得到整个lisrview完整显示需要得高度
+        listView.setLayoutParams(params);
     }
 
     private  void showSomeThing(){
@@ -161,7 +229,7 @@ public class FirstFragment extends Fragment  {
         skipToFragmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            skipFagment(new SecondFragment());
+            skipFagment(new com.adam.collection.test.fragment.SecondFragment());
             }
         });
     }

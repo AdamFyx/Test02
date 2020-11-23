@@ -2,6 +2,7 @@ package com.adam.collection.test.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -36,6 +37,7 @@ public  class DragView extends View {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int rawX = (int) (event.getRawX());
@@ -52,17 +54,15 @@ public  class DragView extends View {
                 int offsetY = rawY - lastY;
                 //在当前left,top,right,bottom的基础上加上偏移量
                 //方式1：
-//                offsetLeftAndRight(offsetX);
-//                offsetTopAndBottom(offsetY);
+                offsetLeftAndRight(offsetX);
+                offsetTopAndBottom(offsetY);
+
                 //方式2：
 //                layout(
 //                        getLeft() + offsetX,
 //                        getTop() + offsetY,
 //                        getRight() + offsetX,
 //                        getBottom() + offsetY);
-                //方式3：
-                ((View)getParent()).scrollBy(-offsetX,-offsetY);
-
                 //重新设置初始坐标
                 lastX=rawX;
                 lastY=rawY;
@@ -76,4 +76,6 @@ public  class DragView extends View {
     public void computeScroll() {
         super.computeScroll();
     }
+
+
 }

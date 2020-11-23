@@ -20,8 +20,9 @@ import java.util.concurrent.TimeUnit;
  * @since
  */
 public class ThreadPoolManager {
-    private  static  ThreadPoolManager mInstance=new ThreadPoolManager();
+    private  static  ThreadPoolManager mInstance;
     public  static  ThreadPoolManager getInstance(){
+        mInstance=new ThreadPoolManager();
         return mInstance;
     }
     private static int corePoolSize;//核心线程池的数量，同时能够执行的线程数量
@@ -52,6 +53,7 @@ public class ThreadPoolManager {
                 new LinkedBlockingQueue<Runnable>(),//缓冲队列，用于存放等待任务，Linked的先进先出
                 Executors.defaultThreadFactory(),//创建线程的工厂
                 new ThreadPoolExecutor.AbortPolicy()//用来对超过maximumPoolSize的任务的处理策略
+
         );
     }
     /*

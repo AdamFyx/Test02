@@ -18,5 +18,6 @@ public  class MyBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context,"我是自定义的广播",Toast.LENGTH_LONG).show();
+
     }
 }

@@ -7,6 +7,7 @@ import android.content.Context;
 import com.adam.collection.test.util.AppUtils;
 import com.adam.collection.test.util.LogUtils;
 import com.adam.collection.test.util.MyUtils;
+import com.adam.collection.test.util.UmengHelper;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -43,6 +44,8 @@ public  class MyAppliaction  extends Application {
         context = getApplicationContext();
         String processName = getCurProcessName(context);
         LogUtils.d("MyAppliaction",processName);
+        UmengHelper.getInstance().init(this,"MainActivity");
+
         initBugly();
     }
     /*

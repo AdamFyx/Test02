@@ -186,7 +186,6 @@ public class PickerView extends View {
                 cancelTimerTask();
                 mLastTouchY = event.getY();
                 break;
-
             case MotionEvent.ACTION_MOVE:
                 float offsetY = event.getY();
                 mScrollDistance += offsetY - mLastTouchY;
